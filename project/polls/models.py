@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import admin
 from django.db import models
 from django.utils import timezone
 
@@ -12,6 +13,11 @@ class Question(models.Model):
     def __str__(self) -> str:
         return self.question_text
 
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='最近公開',
+    )
     def was_published_recently(self):
         """ 公開日が最近かどうかを返す。具体的には1日以内。 """
         now = timezone.now()
